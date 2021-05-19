@@ -59,6 +59,7 @@
  * The system is build as a microservices architecture
  * The backend has the following REST end points:
    | end point | method | description |
+   |-----------|--------|-------------|
    | /         | GET    | Return all crime scenes in the database |
    | /admin    | GET    | Return all 
 
