@@ -21,3 +21,13 @@ On the frontend side we use Leaflet with map parts from OSM or ArgGIS. The backe
 
 This idea was implemented several times already for different cities (mainly in the U.S.).
 A German example can be found on the web page of Stuttgarter Zeitung: [Stuttgarter Zeitung CrimeMap](https://www.stuttgarter-zeitung.de/crimemap).
+
+## Ressources
+
+https://docs.docker.com/get-started/08_using_compose/
+https://docs.docker.com/compose/install/
+https://docs.docker.com/compose/completion/
+
+https://docs.docker.com/get-started/08_using_compose/
+
+Use Google JIB?
