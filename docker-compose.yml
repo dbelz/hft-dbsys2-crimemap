@@ -18,8 +18,8 @@ services:
           depends_on:
                   - postgresdb
 
-  crimemap-ui:
-    image: dannybelz/hft-dbsys2-crimemap-ui:v0.1
+  crimemap-webui:
+    image: dannybelz/hft-dbsys2-crimemap-webui:v0.1
     ports:
       - 8080:8080
     depends_on:
