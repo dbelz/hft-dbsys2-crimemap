@@ -11,16 +11,10 @@ services:
       - POSTGRES_USER=hft
       - POSTGRES_DB=crimemap
 
-  crimemap-backend:
-          image: dannybelz/hft-dbsys2-crimemap-backend:v0.1
+  crimemap:
+          image: dannybelz/hft-dbsys2-crimemap:v0.1
           ports:
-                  - 8090:8090
+                  - 8080:8080
           depends_on:
                   - postgresdb
 
-  crimemap-webui:
-    image: dannybelz/hft-dbsys2-crimemap-webui:v0.1
-    ports:
-      - 8080:8080
-    depends_on:
-            - crimemap-backend
