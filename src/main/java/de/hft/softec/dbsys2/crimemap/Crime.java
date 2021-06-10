@@ -20,11 +20,23 @@ public class Crime {
     private int zip;
     private String city;
     private String address;
+
     @Column(precision = 8, scale = 6)
     private BigDecimal lat;
     @Column(precision = 8, scale = 6)
     private BigDecimal lon;
+
+    // Einbrüche
+    // Unfälle
+    // Eigentumsdelikte
+    // Sexualdelikte
+    // Drogendelikte
+    // Brände
+    // Gewalttaten
+    // Trunkenheit
+    // Sachbeschädigungen
     private String offense;
+
     private String description;
     private String urlToPolicePressRelease;
     

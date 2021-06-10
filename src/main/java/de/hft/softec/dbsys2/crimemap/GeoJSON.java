@@ -22,9 +22,13 @@ public class GeoJSON {
             json += "\"timestamp\":\"" + crime.getDateTime() + "\"},";
             
             json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [";
-            json += crime.getLat() + "," + crime.getLon();
+            json += crime.getLon() + "," + crime.getLat();
             json += "]}},";
         }
+
+        // QUICK AND DIRTY HACK!
+        // We just remove the last comma
+        json = json.substring(0, json.length() - 1);
 
         json += "]}";
 
