@@ -71,12 +71,12 @@
 #### Provided REST endpoints
 | end point | method | description |
 |-----------|--------|-------------|
-| /crime    | GET    | Return all crime scenes in the database |
-| /crime    | POST   | Adds a new crime scene to the database |
-| /crime/{id} | { GET \| UPDATE \| DELETE }  | Returns, updates or deletes the crime scene with the given ID |
-| /admin    | GET    | Return all admins in the database |
-| /admin    | POST   | Adds a new admin to the database |
-| /admin/{id} | { GET \| UPDATE \| DELETE }  | Returns, updates or deletes the admin with the given ID |
+| /crimes    | GET    | Return all crime scenes in the database |
+| /crimes    | POST   | Adds a new crime scene to the database |
+| /crimes/{id} | { GET \| PUT \| DELETE }  | Returns, updates or deletes the crime scene with the given ID |
+| /admins    | GET    | Return all admins in the database |
+| /admins    | POST   | Adds a new admin to the database |
+| /admins/{id} | { GET \| PUT \| DELETE }  | Returns, updates or deletes the admin with the given ID |
 
 #### Query params
 | param    | description |
