@@ -1,0 +1,35 @@
+var data = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "0",
+                "description": "Name: 'Gesucht nach ',Kategorie: Maps",
+                "timestamp": "2017-09-29T13:54:04"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    8.648613,
+                    48.524445
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "1",
+                "description": "Name: 'Gesucht nach <br>Mauserstraße',Kategorie: Maps",
+                "timestamp": "2017-10-14T12:30:59"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    8.996246,
+                    48.693443
+                ]
+            }
+        }
+    ]
+}

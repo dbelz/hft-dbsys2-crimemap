@@ -1,0 +1,41 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "5",
+                "offense": "Körperverletzung",
+                "description": "Party in der Villa eskaliert",
+                "urlToPolicePressRelease": "null",
+                "timestamp": "2021-03-03 01:00:00.0"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.192681,
+                    48.782791
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "6",
+                "offense": "Körperverletzung",
+                "description": "Party in der Villa eskaliert",
+                "urlToPolicePressRelease": "null",
+                "timestamp": "2021-03-03 01:00:00.0"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.192681,
+                    48.782791
+                ]
+            }
+        }
+    ]
+}
+
+48.781971, 9.181539
