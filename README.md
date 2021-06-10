@@ -31,3 +31,28 @@ https://docs.docker.com/compose/completion/
 https://docs.docker.com/get-started/08_using_compose/
 
 Use Google JIB?
+
+## How to build and run
+
+### Stage 1: Locally, without Docker, MySQL locally installed
+
+#### Build and run
+
+```sh
+cd /path/to/hft-dbsys2-crimemap
+mvn spring-boot:run
+```
+
+#### Test
+
+Get all stored crimes
+```sh
+http localhost:8080/crime
+```
+
+Add a new crime
+```sh
+http -f POST :8080/crimes dateTime="2021-03-02T21:23:00+02:00" zip=70174 city=Stuttgart address="Herdweg 19" lat=48.7839723 lon=9.1686235 offense=Einbruch description="Einbruch in Architekturbüro"
+
+http -f POST :8080/crimes dateTime="2021-03-03T23:56:00+02:00" zip=70188 city=Stuttgart address="Haußmannstraße" lat=48.782791 lon=9.192681 offense="Körperverletzung" description="Party in der Villa eskaliert"
+```
