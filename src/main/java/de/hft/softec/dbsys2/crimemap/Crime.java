@@ -66,6 +66,10 @@ public class Crime {
         this.description = description;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }
@@ -128,7 +132,7 @@ public class Crime {
 
     @Override
     public String toString() {
-        return String.format("Crime[id=%d, district=%s, address=%s, latLon=%f,%f, offense=%s]",
+        return String.format("Crime[id=%d, district=%s, latLon=%f,%f, offense=%s]",
             this.id,
             this.district.getName(),
             this.lat,
