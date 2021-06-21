@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>Crimemap</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap" />
+            </svg>
+            <span class="fs-4">Crimemap</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Crimes</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Map</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Admins</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+        </ul>
+    </header>
+
+    <main class="flex-shrink-0">
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="mt-5">Edit crime</h1>
+                    <form th:action="@{/save-crime}" th:object="${crime}" method="post">
+                        <ul th:if="${#fields.hasErrors('*')}">
+                            <li th:each="error : ${#fields.errors('*')}" th:text="${error}">error</li>
+                        </ul>
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <label>Crime ID</label>
+                                <input type="number" class="form-control" th:field="*{id}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Date</label>
+                                <input type="datetime-local" class="form-control" th:field="*{dateTime}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>ZIP</label>
+                                <input type="number" step="any" class="form-control" th:field="*{zip}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control" th:field="*{city}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Latitude</label>
+                                <input type="number" step="any" class="form-control" th:field="*{lat}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Longitude</label>
+                                <input type="number" step="any" class="form-control" th:field="*{lon}">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Offense</label>
+                                <select class="form-control" th:field="*{offense}">
+                                    <option value="">Choose...</option>
+                                    <option value="Design">Gewalttaten</option>
+                                    <option value="Engineering">Sachbeschädigung</option>
+                                    <option value="Marketing">Einbruch</option>
+                                    <option value="Marketing">Unfall</option>
+                                    <option value="Marketing">Sexualdelikt</option>
+                                    <option value="Marketing">Eigentumsdelikte</option>
+                                    <option value="Marketing">Drogendelikte</option>
+                                    <option value="Marketing">Brände</option>
+                                    <option value="Marketing">Trunkenheit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Save crime</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; HFT Stuttgart, Danny Belz, Jonathan Vijakumar</span>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

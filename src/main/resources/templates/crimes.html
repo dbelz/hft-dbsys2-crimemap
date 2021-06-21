@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>Crimemap</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap" />
+            </svg>
+            <span class="fs-4">Crimemap</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Crimes</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Map</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Admins</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+        </ul>
+    </header>
+
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h1 class="mt-5">Crimes</h1>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">ZIP</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Coords</th>
+                        <th scope="col">Offense</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr th:each="crime : ${crimes}">
+                        <th scope="row" th:text="${crime.id}"></th>
+                        <td th:text="${crime.dateTime}"></td>
+                        <td th:text="${crime.zip}"></td>
+                        <td th:text="${crime.city}"></td>
+                        <td th:text="${crime.address}"></td>
+                        <td><a th:href="|https://www.openstreetmap.org/?mlat=${crime.lat}&mlon=${crime.lon}#map=17/${crime.lat}/${crime.lon}|" th:text="|${crime.lat},${crime.lon}|"></a></td>
+                        <td th:text="${crime.offense}"></td>
+                        <td th:text="${crime.description}"></td>
+                        <td>
+                            <form method="GET" th:action="@{/edit-crime/{id}(id=${crime.id})}">
+                                <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; HFT Stuttgart, Danny Belz, Jonathan Vijakumar</span>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
