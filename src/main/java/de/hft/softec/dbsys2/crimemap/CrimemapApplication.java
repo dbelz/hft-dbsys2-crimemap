@@ -79,15 +79,15 @@ public class CrimemapApplication {
 		return "redirect:/";
 	}
 
-
-
-
+	@GetMapping("/delete-crime/{id}")
+	public String deleteCrime(@PathVariable("id") long id, Model model) {
+		Crime crime = crimeRepos.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + id));
+		crimeRepos.delete(crime);
+		return "redirect:/";
+	}
 
 	// https://www.baeldung.com/spring-boot-crud-thymeleaf
-
-
-
-
 
 	// ------------------------------------------------------------------------
 	@RequestMapping(value = "/crimes", method = RequestMethod.GET)
@@ -103,84 +103,56 @@ public class CrimemapApplication {
 
 	}
 
-	// // ------------------------------------------------------------------------
-	// @RequestMapping(value="/crimes", method=RequestMethod.POST)
-	// public String addCrime(@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateTime,
-	// 				@RequestParam(required = true) int zip,
-	// 				@RequestParam(required = true) String city,
-	// 				@RequestParam(required = true) String address,
-	// 				@RequestParam(required = true) BigDecimal lat,
-	// 				@RequestParam(required = true) BigDecimal lon,
-	// 				@RequestParam(required = true) String offense,
-	// 				@RequestParam(required = false) String description,
-	// 				@RequestParam(required = false) String urlToPolicePressRelease) {
-		
-	// 	Crime crime = new Crime(dateTime, zip, city, address, lat, lon, offense);
-	// 	if (StringUtils.hasText(description)) {
-	// 		crime.setDescription(description);
-	// 	}
-	// 	if (StringUtils.hasText(urlToPolicePressRelease)) {
-	// 		crime.setUrlToPolicePressRelease(urlToPolicePressRelease);
-	// 	}
+	@Bean
+	public CommandLineRunner loadOffenseData(OffenseRepository repository) {
 
-	// 	repository.save(crime);
-	// 	return "New crime added: " + crime.toString();
+		return (args) -> {
 
-	// }
+			repository.save(new Offense(1, "Burglary")); // Einbrüche
+			repository.save(new Offense(2, "Accident")); // Unfälle
+			repository.save(new Offense(3, "Property crime")); // Eigentumsdelikte
+			repository.save(new Offense(4, "Sex crime")); // Sexualdelikte
+			repository.save(new Offense(5, "Drugs")); // Drogendelikte
+			repository.save(new Offense(6, "Fire")); // Brände
+			repository.save(new Offense(7, "Violent act")); // Gewalttaten
+			repository.save(new Offense(8, "Drunkenness")); // Trunkenheit
+			repository.save(new Offense(9, "Damage to property")); // Sachbeschädigungen
 
-	// @Bean
-	// public CommandLineRunner loadOffenseData(OffenseRepository repository) {
+		};
 
-	// 	return (args) -> {
+	}
 
-	// 		repository.save(new Offense("Burglary")); // Einbrüche
-	// 		repository.save(new Offense("Accident")); // Unfälle
-	// 		repository.save(new Offense("Property crime")); // Eigentumsdelikte
-	// 		repository.save(new Offense("Sex crime")); // Sexualdelikte
-	// 		repository.save(new Offense("Drugs")); // Drogendelikte
-	// 		repository.save(new Offense("Fire")); // Brände
-	// 		repository.save(new Offense("Violent act")); // Gewalttaten
-	// 		repository.save(new Offense("Drunkenness")); // Trunkenheit
-	// 		repository.save(new Offense("Damage to property")); // Sachbeschädigungen
-			
-	// 	};
+	@Bean
+	public CommandLineRunner loadDistrictData(DistrictRepository repository) {
 
-	// }
+		return (args) -> {
 
-	// @Bean
-	// public CommandLineRunner loadDistrictData(DistrictRepository repository) {
+			repository.save(new District(1, "Bad Cannstatt"));
+			repository.save(new District(2, "Birkach"));
+			repository.save(new District(3, "Botnang"));
+			repository.save(new District(4, "Degerloch"));
+			repository.save(new District(5, "Feuerbach"));
+			repository.save(new District(6, "Hedelfingen"));
+			repository.save(new District(7, "Möhringen"));
+			repository.save(new District(8, "Mühlhausen"));
+			repository.save(new District(9, "Münster"));
+			repository.save(new District(10, "Obertürkheim"));
+			repository.save(new District(11, "Plieningen"));
+			repository.save(new District(12, "Sillenbuch"));
+			repository.save(new District(13, "Stammheim"));
+			repository.save(new District(14, "Stuttgart‐Mitte"));
+			repository.save(new District(15, "Stuttgart‐Nord"));
+			repository.save(new District(16, "Stuttgart‐Ost"));
+			repository.save(new District(17, "Stuttgart‐Süd"));
+			repository.save(new District(18, "Stuttgart‐West"));
+			repository.save(new District(19, "Untertürkheim"));
+			repository.save(new District(20, "Vaihingen"));
+			repository.save(new District(21, "Wangen"));
+			repository.save(new District(22, "Weilimdorf"));
+			repository.save(new District(23, "Zuffenhausen"));
 
-	// 	return (args) -> {
+		};
 
-	// 		repository.save(new District("Bad Cannstatt"));
-	// 		repository.save(new District("Birkach"));
-	// 		repository.save(new District("Botnang"));
-	// 		repository.save(new District("Degerloch"));
-	// 		repository.save(new District("Feuerbach"));
-	// 		repository.save(new District("Hedelfingen"));
-	// 		repository.save(new District("Möhringen"));
-	// 		repository.save(new District("Mühlhausen"));
-	// 		repository.save(new District("Münster"));
-	// 		repository.save(new District("Obertürkheim"));
-	// 		repository.save(new District("Plieningen"));
-	// 		repository.save(new District("Sillenbuch"));
-	// 		repository.save(new District("Stammheim"));
-	// 		repository.save(new District("Stuttgart‐Mitte"));
-	// 		repository.save(new District("Stuttgart‐Nord"));
-	// 		repository.save(new District("Stuttgart‐Ost"));
-	// 		repository.save(new District("Stuttgart‐Süd"));
-	// 		repository.save(new District("Stuttgart‐West"));
-	// 		repository.save(new District("Untertürkheim"));
-	// 		repository.save(new District("Vaihingen"));
-	// 		repository.save(new District("Wangen"));
-	// 		repository.save(new District("Weilimdorf"));
-	// 		repository.save(new District("Zuffenhausen"));
-			
-	// 	};
-
-	// }
-
-
-	
+	}
 
 }
