@@ -9,6 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Crime {
@@ -16,9 +21,14 @@ public class Crime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateTime;
-    private int zip;
-    private String city;
+
+    @ManyToOne
+    private District district;
+    
     private String address;
 
     @Column(precision = 8, scale = 6)
@@ -26,28 +36,18 @@ public class Crime {
     @Column(precision = 8, scale = 6)
     private BigDecimal lon;
 
-    // Einbrüche
-    // Unfälle
-    // Eigentumsdelikte
-    // Sexualdelikte
-    // Drogendelikte
-    // Brände
-    // Gewalttaten
-    // Trunkenheit
-    // Sachbeschädigungen
-    private String offense;
+    @ManyToOne
+    private Offense offense;
 
     private String description;
-    private String urlToPolicePressRelease;
     
     protected Crime() { }
 
     public Crime(Date dateTime,
-            int zip, String city, String address, BigDecimal lat, BigDecimal lon,
-            String offense) {
+            District district, String address, BigDecimal lat, BigDecimal lon,
+            Offense offense) {
         this.dateTime = dateTime;
-        this.zip = zip;
-        this.city = city;
+        this.district = district;
         this.address = address;
         this.lat = lat;
         this.lon = lon;
@@ -55,30 +55,15 @@ public class Crime {
     }
 
     public Crime(Date dateTime,
-            int zip, String city, String address, BigDecimal lat, BigDecimal lon,
-            String offense, String description) {
+            District district, String address, BigDecimal lat, BigDecimal lon,
+            Offense offense, String description) {
         this.dateTime = dateTime;
-        this.zip = zip;
-        this.city = city;
+        this.district = district;
         this.address = address;
         this.lat = lat;
         this.lon = lon;
         this.offense = offense;
         this.description = description;
-    }
-
-    public Crime(Date dateTime,
-            int zip, String city, String address, BigDecimal lat, BigDecimal lon,
-            String offense, String description, String urlToPolicePressRelease) {
-        this.dateTime = dateTime;
-        this.zip = zip;
-        this.city = city;
-        this.address = address;
-        this.lat = lat;
-        this.lon = lon;
-        this.offense = offense;
-        this.description = description;
-        this.urlToPolicePressRelease = urlToPolicePressRelease;
     }
 
     public long getId() {
@@ -93,20 +78,12 @@ public class Crime {
         return dateTime;
     }
 
-    public void setZip(int zip) {
-        this.zip = zip;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
-    public int getZip() {
-        return zip;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-        return city;
+    public District getDistrict() {
+        return district;
     }
 
     public void setAddress(String address) {
@@ -133,11 +110,11 @@ public class Crime {
         return lon;
     }
 
-    public void setOffense(String offense) {
+    public void setOffense(Offense offense) {
         this.offense = offense;
     }
 
-    public String getOffense() {
+    public Offense getOffense() {
         return offense;
     }
 
@@ -149,24 +126,14 @@ public class Crime {
         return description;
     }
 
-    public void setUrlToPolicePressRelease(String urlToPolicePressRelease) {
-        this.urlToPolicePressRelease = urlToPolicePressRelease;
-    }
-
-    public String getUrlToPolicePressRelease() {
-        return urlToPolicePressRelease;
-    }
-
     @Override
     public String toString() {
-        return String.format("Crime[id=%d, zip=%s, city=%s, address=%s, latLon=%f,%f, offense=%s]",
+        return String.format("Crime[id=%d, district=%s, address=%s, latLon=%f,%f, offense=%s]",
             this.id,
-            this.zip,
-            this.city,
-            this.address,
+            this.district.getName(),
             this.lat,
             this.lon,
-            this.offense);
+            this.offense.getName());
     }
 
 }

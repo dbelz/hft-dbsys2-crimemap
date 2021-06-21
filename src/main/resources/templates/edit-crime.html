@@ -41,21 +41,17 @@
                             <li th:each="error : ${#fields.errors('*')}" th:text="${error}">error</li>
                         </ul>
                         <div class="form-row">
-                            <div class="col-md-6 form-group">
-                                <label>Crime ID</label>
-                                <input type="number" class="form-control" th:field="*{id}">
-                            </div>
+                            <input type="hidden" th:field="*{id}">
                             <div class="col-md-6 form-group">
                                 <label>Date</label>
-                                <input type="datetime-local" class="form-control" th:field="*{dateTime}">
+                                <input type="date" class="form-control" th:field="*{dateTime}">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>ZIP</label>
-                                <input type="number" step="any" class="form-control" th:field="*{zip}">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>City</label>
-                                <input type="text" class="form-control" th:field="*{city}">
+                                <label>District</label>
+                                <select class="form-control" th:field="*{district.id}">
+                                    <option value="0">Choose district...</option>
+                                    <option th:each="district : ${districts}" th:value="${district.id}" th:text="${district.name}"></option>
+                                </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Latitude</label>
@@ -67,17 +63,9 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Offense</label>
-                                <select class="form-control" th:field="*{offense}">
-                                    <option value="">Choose...</option>
-                                    <option value="Design">Gewalttaten</option>
-                                    <option value="Engineering">Sachbeschädigung</option>
-                                    <option value="Marketing">Einbruch</option>
-                                    <option value="Marketing">Unfall</option>
-                                    <option value="Marketing">Sexualdelikt</option>
-                                    <option value="Marketing">Eigentumsdelikte</option>
-                                    <option value="Marketing">Drogendelikte</option>
-                                    <option value="Marketing">Brände</option>
-                                    <option value="Marketing">Trunkenheit</option>
+                                <select class="form-control" th:field="*{offense.id}">
+                                    <option value="0">Choose offense...</option>
+                                    <option th:each="offense : ${offenses}" th:value="${offense.id}" th:text="${offense.name}"></option>
                                 </select>
                             </div>
                         </div>

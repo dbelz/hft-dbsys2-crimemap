@@ -1,7 +1,6 @@
 package de.hft.softec.dbsys2.crimemap;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 public class GeoJSON {
     
@@ -16,9 +15,9 @@ public class GeoJSON {
 
             json += "\"properties\": {";
             json += "\"id\":\"" + crime.getId() + "\",";
-            json += "\"offense\":\"" + crime.getOffense() + "\",";
+            json += "\"district\":\"" + crime.getDistrict().getName() + "\",";
+            json += "\"offense\":\"" + crime.getOffense().getName() + "\",";
             json += "\"description\":\"" + crime.getDescription() + "\",";
-            json += "\"urlToPolicePressRelease\":\"" + crime.getUrlToPolicePressRelease() + "\",";
             json += "\"timestamp\":\"" + crime.getDateTime() + "\"},";
             
             json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [";

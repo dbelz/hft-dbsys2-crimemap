@@ -40,13 +40,11 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
-                        <th scope="col">ZIP</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Address</th>
+                        <th scope="col">District</th>
                         <th scope="col">Coords</th>
                         <th scope="col">Offense</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,11 +52,9 @@
                     <tr th:each="crime : ${crimes}">
                         <th scope="row" th:text="${crime.id}"></th>
                         <td th:text="${crime.dateTime}"></td>
-                        <td th:text="${crime.zip}"></td>
-                        <td th:text="${crime.city}"></td>
-                        <td th:text="${crime.address}"></td>
+                        <td th:text="${crime.district.name}"></td>
                         <td><a th:href="|https://www.openstreetmap.org/?mlat=${crime.lat}&mlon=${crime.lon}#map=17/${crime.lat}/${crime.lon}|" th:text="|${crime.lat},${crime.lon}|"></a></td>
-                        <td th:text="${crime.offense}"></td>
+                        <td th:text="${crime.offense.name}"></td>
                         <td th:text="${crime.description}"></td>
                         <td>
                             <form method="GET" th:action="@{/edit-crime/{id}(id=${crime.id})}">
