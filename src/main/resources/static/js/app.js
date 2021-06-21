@@ -1,16 +1,71 @@
 var map;
 var geoJsonLayer;
-var timeline;
 var items;
 
-var redIcon = new L.Icon({
-  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+var accidentIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/accident.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
 });
+
+var burglaryIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/burglary.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+
+var damageIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/damage.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var drugIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/drug.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var drunkennessIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/drunkenness.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var fireIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/fire.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var propertyIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/property.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var sexIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/sex.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
+var violenceIcon = new L.Icon({
+  iconUrl: 'http://localhost:8080/res/violence.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 18],
+  popupAnchor: [18, 18],
+});
+
 
 // Map callbacks
 function showCoordinates(e) {
@@ -24,9 +79,6 @@ var customOptions = {
 
 function markerOnClick(e) {
   var attributes = e.layer.properties;
-  timeline.setSelection(e.layer._leaflet_id, {
-    focus: true
-  });
 }
 
 // See https://leaflet-extras.github.io/leaflet-providers/preview/ for different providers
@@ -63,8 +115,7 @@ function initMap(gdata) {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
-        text: 'Show coordinates',
-        callback: showCoordinates
+        text: 'Show coordinates', callback: showCoordinates
       }
     ]
   });
@@ -84,18 +135,45 @@ function initMap(gdata) {
       
       htmlDesc = "<b>" + feature.properties.offense + "</b></br></br>" + feature.properties.description;
 
-      // var rawDesc = feature.properties.description;
-      // if (rawDesc == null)
-      //   rawDesc = "";
-
-      // split = rawDesc.split(",");
-      // var htmlDesc = "";
-      // for (s in split) {
-      //   sub_split = split[s].split(":", 2)
-      //   htmlDesc = htmlDesc + "<b>" + sub_split[0] + ":</b>" + sub_split[1] + "<br>"
-      // }
       layer.bindPopup(feature.properties.timestamp + "<br><br>" + htmlDesc, customOptions);
       layer._leaflet_id = feature.properties.id;
+
+    },
+    pointToLayer: function(feature, latlng) {
+
+      switch (feature.properties.offense) {
+
+        case "Accident":
+          myIcon = accidentIcon;
+          break;
+        case "Burglary":
+          myIcon = burglaryIcon;
+          break;
+        case "Property crime":
+          myIcon = propertyIcon;
+          break;
+        case "Sex crime":
+          myIcon = sexIcon;
+          break;
+        case "Drugs":
+          myIcon = drugIcon;
+          break;
+        case "Fire":
+          myIcon = fireIcon;
+          break;
+        case "Violent act":
+          myIcon = violenceIcon;
+          break;
+        case "Drunkenness":
+          myIcon = drunkennessIcon;
+          break;
+        case "Damage to property":
+          myIcon = damageIcon;
+          break;
+
+      }
+
+      return L.marker(latlng, { icon: myIcon });
 
     }
   });
@@ -110,73 +188,6 @@ function initMap(gdata) {
 
   return map, geoJsonLayer;
 
-}
-
-function reinitTimeline(timeline, items, data) {
-  console.log("Reinit timeline")
-  items.clear();
-  var items2 = new vis.DataSet();
-
-  var i = 0;
-  for (i = 0; i < data.features.length; i++) {
-    items2.add({
-      id: data.features[i].properties.id,
-      content: data.features[i].properties.timestamp.toString(),
-      start: data.features[i].properties.timestamp
-    });
-  }
-  console.log("after")
-  timeline.setItems(items2);
-
-  // Set default zoom level
-  timeline.fit(true);
-  timeline.redraw();
-
-  return timeline, items2;
-}
-
-
-function initTimeline(data) {
-  // Set timeline options
-  var timelineOptions = {
-
-    "width": "100%",
-    "height": "120px",
-    "style": "box",
-    "axisOnTop": true,
-    "showCustomTime": true,
-    "editable": false,
-    "verticalScroll": false,
-    "stack": false,
-    "limitSize": true,
-    "selectable": true
-  };
-
-  // Create items, used by timeline
-  var items = new vis.DataSet();
-  var i = 0;
-  for (i = 0; i < data.features.length; i++) {
-    console.log("add" + i);
-    items.add({
-      id: data.features[i].properties.id,
-      content: data.features[i].properties.timestamp.toString(),
-      start: data.features[i].properties.timestamp
-    });
-  }
-
-  // Setup timeline
-  timeline = new vis.Timeline(document.getElementById('timeline'), items, timelineOptions);
-
-  // Set default zoom level
-  timeline.fit(true);
-
-  timeline.on('select', function(properties) {
-    logEvent('select', properties);
-    console.log(properties.items[0])
-    centerLeafletMapOnMarker(properties.items[0])
-  });
-
-  return timeline, items;
 }
 
 // toString-Utility method
@@ -207,6 +218,6 @@ fetch('http://localhost:8080/crimes')
     // Initialize leaflet map
     map, geoJsonLayer = initMap(data);
     // Initialize timeline
-    timeline, items = initTimeline(data);
+    // timeline, items = initTimeline(data);
   });
 
