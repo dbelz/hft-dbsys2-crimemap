@@ -9,37 +9,19 @@ import javax.persistence.Id;
 public class District {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    // Bad Cannstatt
-    // Birkach
-    // Botnang
-    // Degerloch
-    // Feuerbach
-    // Hedelfingen
-    // Möhringen
-    // Mühlhausen
-    // Münster
-    // Obertürkheim
-    // Plieningen
-    // Sillenbuch
-    // Stammheim
-    // Stuttgart‐Mitte
-    // Stuttgart‐Nord
-    // Stuttgart‐Ost
-    // Stuttgart‐Süd
-    // Stuttgart‐West
-    // Untertürkheim
-    // Vaihingen
-    // Wangen
-    // Weilimdorf
-    // Zuffenhausen
     private String name;
 
     protected District() { }
 
     public District(String name) {
+        this.name = name;
+    }
+
+    public District(long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

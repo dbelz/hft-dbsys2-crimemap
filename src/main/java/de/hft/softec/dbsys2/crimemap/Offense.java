@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Offense {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
@@ -17,6 +17,11 @@ public class Offense {
     protected Offense() { }
 
     public Offense(String name) {
+        this.name = name;
+    }
+
+    public Offense(long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
