@@ -12,9 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import jdk.javadoc.internal.doclets.formats.html.resources.standard;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @SpringBootApplication
 @Controller
@@ -57,18 +57,18 @@ public class CrimemapApplication {
 		return "redirect:/";
 	}
 
-	// // ------------------------------------------------------------------------
-	// @RequestMapping(value = "/crimes", method = RequestMethod.GET)
-	// public String listAllCrimes() {
+	// ------------------------------------------------------------------------
+	@RequestMapping(value = "/crimes", method = RequestMethod.GET)
+	public String listAllCrimes() {
 
-	// 	logger.info("--- listAllCrimes");
+		logger.info("--- listAllCrimes");
 
-	// 	List<Crime> crimes = repository.findAll();
-	// 	String geoJSONString = GeoJSON.convertToGeoJSON(crimes);
+		List<Crime> crimes = repository.findAll();
+		String geoJSONString = GeoJSON.convertToGeoJSON(crimes);
 
-	// 	return geoJSONString;
+		return geoJSONString;
 
-	// }
+	}
 
 	// // ------------------------------------------------------------------------
 	// @RequestMapping(value="/crimes", method=RequestMethod.POST)
