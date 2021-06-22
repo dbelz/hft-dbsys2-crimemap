@@ -6,16 +6,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
@@ -71,14 +71,14 @@ public class CrimemapApplication {
 
 		List<Crime> crimes;
 		if (filter.getDistrict() > 0 & filter.getOffense() > 0) {
-			Offense offense = offenseRepos.findById(filter.getOffense()).orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + filter.getOffense()));
-			District district = districtRepos.findById(filter.getDistrict()).orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + filter.getDistrict()));
+			Offense offense = offenseRepos.findById(filter.getOffense()).orElseThrow(() -> new IllegalArgumentException("Invalid offense Id:" + filter.getOffense()));
+			District district = districtRepos.findById(filter.getDistrict()).orElseThrow(() -> new IllegalArgumentException("Invalid district Id:" + filter.getDistrict()));
 			crimes = crimeRepos.findAllByOffenseAndDistrictAndDateOfCrimeBetween(offense, district, startDate, endDate);
 		} else if (filter.getDistrict() > 0) {
-			District district = districtRepos.findById(filter.getDistrict()).orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + filter.getDistrict()));
+			District district = districtRepos.findById(filter.getDistrict()).orElseThrow(() -> new IllegalArgumentException("Invalid district Id:" + filter.getDistrict()));
 			crimes = crimeRepos.findAllByDistrictAndDateOfCrimeBetween(district, startDate, endDate);
 		} else if (filter.getOffense() > 0) {
-			Offense offense = offenseRepos.findById(filter.getOffense()).orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + filter.getOffense()));
+			Offense offense = offenseRepos.findById(filter.getOffense()).orElseThrow(() -> new IllegalArgumentException("Invalid offense Id:" + filter.getOffense()));
 			crimes = crimeRepos.findAllByOffenseAndDateOfCrimeBetween(offense, startDate, endDate);
 		} else {
 			crimes = crimeRepos.findAllByDateOfCrimeBetween(startDate, endDate);
@@ -156,13 +156,45 @@ public class CrimemapApplication {
 	}
 
 	// ------------------------------------------------------------------------
+	// REST API
+	// ------------------------------------------------------------------------
 	@RequestMapping(value = "/crimes", method = RequestMethod.GET)
 	@ResponseBody
-	public String listAllCrimes() {
+	public String getCrimesGeoJSON(
+			@RequestParam(name="o", defaultValue = "0", required = false) long offenseId, 
+			@RequestParam(name="d", defaultValue = "0", required = false) long districtId,
+			@RequestParam(name="ds", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,
+			@RequestParam(name="de", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd) {
 
-		logger.info("--- listAllCrimes");
+		logger.info("--- getCrimesGeoJSON");
+		logger.debug("     * district: " + districtId);
+		logger.debug("     * offense: " + offenseId);
+		logger.debug("     * dateStart: " + dateStart);
+		logger.debug("     * dateEnd: " + dateEnd);
 
-		List<Crime> crimes = crimeRepos.findAll();
+		if (dateStart == null) {
+			dateStart = new Date(0);
+		}
+
+		if (dateEnd == null) {
+			dateEnd = new Date();
+		}
+
+		List<Crime> crimes;
+		if (districtId > 0 & offenseId > 0) {
+			Offense offense = offenseRepos.findById(offenseId).orElseThrow(() -> new IllegalArgumentException("Invalid offense Id:" + offenseId));
+			District district = districtRepos.findById(districtId).orElseThrow(() -> new IllegalArgumentException("Invalid district Id:" + districtId));
+			crimes = crimeRepos.findAllByOffenseAndDistrictAndDateOfCrimeBetween(offense, district, dateStart, dateEnd);
+		} else if (districtId > 0) {
+			District district = districtRepos.findById(districtId).orElseThrow(() -> new IllegalArgumentException("Invalid district Id:" + districtId));
+			crimes = crimeRepos.findAllByDistrictAndDateOfCrimeBetween(district, dateStart, dateEnd);
+		} else if (offenseId > 0) {
+			Offense offense = offenseRepos.findById(offenseId).orElseThrow(() -> new IllegalArgumentException("Invalid offense Id:" + offenseId));
+			crimes = crimeRepos.findAllByOffenseAndDateOfCrimeBetween(offense, dateStart, dateEnd);
+		} else {
+			crimes = crimeRepos.findAllByDateOfCrimeBetween(dateStart, dateEnd);
+		}
+
 		return GeoJSON.convertToGeoJSON(crimes);
 
 	}
