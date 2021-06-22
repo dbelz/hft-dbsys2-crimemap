@@ -27,7 +27,9 @@ public class GeoJSON {
 
         // QUICK AND DIRTY HACK!
         // We just remove the last comma
-        json = json.substring(0, json.length() - 1);
+        if (crimes.size() > 0) {
+            json = json.substring(0, json.length() - 1);
+        }
 
         json += "]}";
 
