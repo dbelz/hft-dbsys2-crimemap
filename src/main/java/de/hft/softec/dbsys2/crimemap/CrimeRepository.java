@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CrimeRepository extends JpaRepository<Crime, Long> {
  
+    public List<Crime> findAllByDateOfCrimeBetween(Date startDate, Date endDate);
     public List<Crime> findAllByOffenseAndDateOfCrimeBetween(Offense offense, Date startDate, Date endDate);
     public List<Crime> findAllByDistrictAndDateOfCrimeBetween(District district, Date startDate, Date endDate);
     public List<Crime> findAllByOffenseAndDistrictAndDateOfCrimeBetween(Offense offense, District district, Date startDate, Date endDate);

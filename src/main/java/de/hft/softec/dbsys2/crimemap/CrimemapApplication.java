@@ -81,7 +81,7 @@ public class CrimemapApplication {
 			Offense offense = offenseRepos.findById(filter.getOffense()).orElseThrow(() -> new IllegalArgumentException("Invalid crime Id:" + filter.getOffense()));
 			crimes = crimeRepos.findAllByOffenseAndDateOfCrimeBetween(offense, startDate, endDate);
 		} else {
-			crimes = crimeRepos.findAll();
+			crimes = crimeRepos.findAllByDateOfCrimeBetween(startDate, endDate);
 		}
 
 		model.addAttribute("filter", filter);
@@ -90,6 +90,20 @@ public class CrimemapApplication {
 		model.addAttribute("offenses", offenseRepos.findAll());
 
 		return "crimes";
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.POST, params = "reset")
+	public String resetCrimeFilter(Filter filter, Model model) {
+
+		// FIXME: This is actually the same as getCrimes()
+		List<Crime> crimes = crimeRepos.findAll();
+		model.addAttribute("filter", new Filter());
+		model.addAttribute("crimes", crimes);
+		model.addAttribute("districts", districtRepos.findAll());
+		model.addAttribute("offenses", offenseRepos.findAll());
+
+		return "crimes";
+
 	}
 
 	@GetMapping("/edit-crime/{id}")
@@ -149,9 +163,7 @@ public class CrimemapApplication {
 		logger.info("--- listAllCrimes");
 
 		List<Crime> crimes = crimeRepos.findAll();
-		String geoJSONString = GeoJSON.convertToGeoJSON(crimes);
-
-		return geoJSONString;
+		return GeoJSON.convertToGeoJSON(crimes);
 
 	}
 
