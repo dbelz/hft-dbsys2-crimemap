@@ -47,15 +47,15 @@ mvn spring-boot:run
 
 Get all stored crimes
 ```sh
-http localhost:8080/crime
+http localhost:8080/crimes
 ```
 
 Add a new crime
 ```sh
-http -f POST :8080/crimes dateTime="2021-03-02T21:23:00+02:00" zip=70174 city=Stuttgart address="Herdweg 19" lat=48.7839723 lon=9.1686235 offense=Einbruch description="Einbruch in Architekturbüro"
+http -f POST :8080/crimes dateOfCrime="2021-03-02" district=14 lat=48.7839723 lon=9.1686235 offense=1 description="Einbruch in Architekturbüro"
 
-http -f POST :8080/crimes dateTime="2021-03-03T23:56:00+02:00" zip=70188 city=Stuttgart address="Haußmannstraße" lat=48.782791 lon=9.192681 offense="Körperverletzung" description="Party in der Villa eskaliert"
+http -f POST :8080/crimes dateOfCrime="2021-03-03" district=14 lat=48.782791 lon=9.192681 offense=2 description="Party in der Villa eskaliert"
 
-http -f POST :8080/crimes dateTime="2021-06-10" zip=70173 city=Stuttgart address="Königstraße" lat=48.781971 lon=9.181539 offense="Sachbeschädigung" description="Brezelkörble umgeworfen"
+http -f POST :8080/crimes dateOfCrime="2021-06-10" district=14 lat=48.781971 lon=9.181539 offense=3 description="Brezelkörble umgeworfen"
 
 ```
