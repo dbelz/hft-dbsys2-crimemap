@@ -185,7 +185,10 @@ function initMap(crimeGeoData) {
 
 }
 
-fetch('http://localhost:8080/crimes')
+queryString = window.location.search;
+console.log("Query string: " + queryString);
+
+fetch('http://localhost:8080/crimes' + queryString)
   .then((response) => {
     return response.json();
   })
