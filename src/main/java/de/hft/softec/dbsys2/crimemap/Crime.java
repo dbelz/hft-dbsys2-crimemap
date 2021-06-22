@@ -24,7 +24,7 @@ public class Crime {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateTime;
+    private Date dateOfCrime;
 
     @ManyToOne
     private District district;
@@ -43,10 +43,10 @@ public class Crime {
     
     protected Crime() { }
 
-    public Crime(Date dateTime,
+    public Crime(Date dateOfCrime,
             District district, String address, BigDecimal lat, BigDecimal lon,
             Offense offense) {
-        this.dateTime = dateTime;
+        this.dateOfCrime = dateOfCrime;
         this.district = district;
         this.address = address;
         this.lat = lat;
@@ -54,10 +54,10 @@ public class Crime {
         this.offense = offense;
     }
 
-    public Crime(Date dateTime,
+    public Crime(Date dateOfCrime,
             District district, String address, BigDecimal lat, BigDecimal lon,
             Offense offense, String description) {
-        this.dateTime = dateTime;
+        this.dateOfCrime = dateOfCrime;
         this.district = district;
         this.address = address;
         this.lat = lat;
@@ -74,12 +74,12 @@ public class Crime {
         return id;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDateOfCrime(Date date) {
+        this.dateOfCrime = date;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Date getDateOfCrime() {
+        return dateOfCrime;
     }
 
     public void setDistrict(District district) {
@@ -132,8 +132,9 @@ public class Crime {
 
     @Override
     public String toString() {
-        return String.format("Crime[id=%d, district=%s, latLon=%f,%f, offense=%s]",
+        return String.format("Crime[id=%d, date=%s, district=%s, latLon=%f,%f, offense=%s]",
             this.id,
+            this.dateOfCrime,
             this.district.getName(),
             this.lat,
             this.lon,

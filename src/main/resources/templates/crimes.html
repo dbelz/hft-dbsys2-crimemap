@@ -15,20 +15,13 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom text-light bg-dark">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-light text-decoration-none">
             <svg class="bi me-2" width="40" height="32">
                 <use xlink:href="#bootstrap" />
             </svg>
             <span class="fs-4">Crimemap</span>
         </a>
-
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Crimes</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Map</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Admins</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
-        </ul>
     </header>
 
     <main class="flex-shrink-0">
@@ -41,8 +34,35 @@
                     <a th:href="@{/edit-crime/}" class="btn btn-primary button-lg" role="button"><i class="bi bi-plus-lg"></i> Add crime</a>
                 </div>
             </div>
+
+            <form th:action="@{/}" th:object="${filter}" method="post">
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        <select class="form-select" th:field="*{district}">
+                            <option value="0">Choose district...</option>
+                            <option th:each="district : ${districts}" th:value="${district.id}" th:text="${district.name}" name="district"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" th:field="*{offense}">
+                            <option value="0">Choose offense...</option>
+                            <option th:each="offense : ${offenses}" th:value="${offense.id}" th:text="${offense.name}" name="offense"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" class="form-control" th:field="*{dateStart}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" class="form-control" th:field="*{dateEnd}">
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" name="submit" class="btn btn-secondary btn-block"><i class="bi bi-filter"></i> Apply filter</button>
+                    </div>
+                </div>
+            </form>
                 
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-sm mt-5">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -58,15 +78,12 @@
 
                     <tr th:each="crime : ${crimes}">
                         <th scope="row" th:text="${crime.id}"></th>
-                        <td th:text="${crime.dateTime}"></td>
+                        <td th:text="${crime.dateOfCrime}"></td>
                         <td th:text="${crime.district.name}"></td>
                         <td><a th:href="|https://www.openstreetmap.org/?mlat=${crime.lat}&mlon=${crime.lon}#map=17/${crime.lat}/${crime.lon}|" th:text="|${crime.lat},${crime.lon}|"></a></td>
                         <td th:text="${crime.offense.name}"></td>
                         <td th:text="${crime.description}"></td>
-                        <td><!--
-                            <form method="GET" th:action="@{/edit-crime/{id}(id=${crime.id})}">
-                                <button type="button" class="btn btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                            </form>-->
+                        <td>
                             <a th:href="@{/edit-crime/{id}(id=${crime.id})}" class="btn btn-outline-primary btn-sm" role="button"><i class="bi bi-pencil"></i> Edit</a>
                             <a th:href="@{/delete-crime/{id}(id=${crime.id})}" class="btn btn-outline-danger btn-sm" role="button"><i class="bi bi-trash"></i> Delete</a>
                         </td>
@@ -79,7 +96,7 @@
 
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
-            <span class="text-muted">&copy; Built with <i class="bi bi-suit-heart-fill"></i> by Danny Belz &amp; Jonathan Vijakumar</span>
+            <span class="text-muted">&copy; Built with <i class="bi bi-suit-heart-fill"></i> by Danny Belz &amp; Jonathan Vijayakumar</span>
         </div>
     </footer>
 

@@ -18,7 +18,7 @@ public class GeoJSON {
             json += "\"district\":\"" + crime.getDistrict().getName() + "\",";
             json += "\"offense\":\"" + crime.getOffense().getName() + "\",";
             json += "\"description\":\"" + crime.getDescription() + "\",";
-            json += "\"timestamp\":\"" + crime.getDateTime() + "\"},";
+            json += "\"timestamp\":\"" + crime.getDateOfCrime() + "\"},";
             
             json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [";
             json += crime.getLon() + "," + crime.getLat();
