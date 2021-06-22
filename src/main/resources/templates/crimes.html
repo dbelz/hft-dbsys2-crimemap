@@ -27,11 +27,12 @@
     <main class="flex-shrink-0">
         <div class="container">
             <div class="row mt-5">
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <h1>Crimes</h1>
                 </div>
-                <div class="col-md-2 float-right text-end">
+                <div class="col-md-3 float-right text-end">
                     <a th:href="@{/edit-crime/}" class="btn btn-primary button-lg" role="button"><i class="bi bi-plus-lg"></i> Add crime</a>
+                    <a target="crimemap_map" th:href="|/map.html?o=${filter.offenseString}&d=${filter.districtString}&ds=${filter.dateStartString}&de=${filter.dateEndString}|" class="btn btn-success button-lg" role="button"><i class="bi bi-map"></i> Open map</a>
                 </div>
             </div>
 
@@ -75,7 +76,7 @@
                         <th scope="col">Coords</th>
                         <th scope="col">Offense</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,10 +85,10 @@
                         <th scope="row" th:text="${crime.id}"></th>
                         <td th:text="${crime.dateOfCrime}"></td>
                         <td th:text="${crime.district.name}"></td>
-                        <td><a th:href="|https://www.openstreetmap.org/?mlat=${crime.lat}&mlon=${crime.lon}#map=17/${crime.lat}/${crime.lon}|" th:text="|${crime.lat},${crime.lon}|"></a></td>
+                        <td><a target="crimemap_osm" th:href="|https://www.openstreetmap.org/?mlat=${crime.lat}&mlon=${crime.lon}#map=17/${crime.lat}/${crime.lon}|" th:text="|${crime.lat},${crime.lon}|"></a></td>
                         <td th:text="${crime.offense.name}"></td>
                         <td th:text="${crime.description}"></td>
-                        <td>
+                        <td class="text-end">
                             <a th:href="@{/edit-crime/{id}(id=${crime.id})}" class="btn btn-outline-primary btn-sm" role="button"><i class="bi bi-pencil"></i> Edit</a>
                             <a th:href="@{/delete-crime/{id}(id=${crime.id})}" class="btn btn-outline-danger btn-sm" role="button"><i class="bi bi-trash"></i> Delete</a>
                         </td>
