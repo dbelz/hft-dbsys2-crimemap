@@ -5,65 +5,65 @@ var items;
 var accidentIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/accident.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var burglaryIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/burglary.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 
 var damageIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/damage.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var drugIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/drug.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var drunkennessIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/drunkenness.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var fireIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/fire.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var propertyIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/property.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var sexIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/sex.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 var violenceIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/violence.svg',
   iconSize: [36, 36],
-  iconAnchor: [18, 18],
-  popupAnchor: [18, 18],
+  iconAnchor: [0, 0],
+  popupAnchor: [18, 0]
 });
 
 
@@ -105,7 +105,7 @@ function removeMap() {
   }
 }
 
-function initMap(gdata) {
+function initMap(crimeGeoData) {
   console.log("Init map");
   removeMap();
 
@@ -123,19 +123,14 @@ function initMap(gdata) {
   // Add layer list to map
   L.control.layers(baseLayers).addTo(map);
 
-  // Init information pane
-  L.control.infoPane('infopane', {
-    position: 'bottomright'
-  }).addTo(map);
-
   // Set up marker cluster, which is linked to geoJson-layer
   var clusterLayer = L.markerClusterGroup();
-  geoJsonLayer = L.geoJson(gdata, {
+  geoJsonLayer = L.geoJson(crimeGeoData, {
     onEachFeature: function(feature, layer) {
       
-      htmlDesc = "<b>" + feature.properties.offense + "</b></br></br>" + feature.properties.description;
+      htmlDesc = feature.properties.timestamp + " &mdash; <b>" + feature.properties.offense + "</b></br>" + feature.properties.description;
 
-      layer.bindPopup(feature.properties.timestamp + "<br><br>" + htmlDesc, customOptions);
+      layer.bindPopup(htmlDesc, customOptions);
       layer._leaflet_id = feature.properties.id;
 
     },
@@ -187,25 +182,6 @@ function initMap(gdata) {
   geoJsonLayer.on("click", markerOnClick)
 
   return map, geoJsonLayer;
-
-}
-
-// toString-Utility method
-function stringifyObject(object) {
-  if (!object) return;
-  var replacer = function(key, value) {
-    if (value && value.tagName) {
-      return "DOM Element";
-    } else {
-      return value;
-    }
-  }
-  return JSON.stringify(object, replacer)
-}
-
-// Utility method to log to web console
-function logEvent(event, properties) {
-  console.log(event, ": ", stringifyObject(properties))
 
 }
 

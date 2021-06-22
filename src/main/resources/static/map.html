@@ -14,104 +14,47 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
   <style>
     #map {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      /*bottom: 120px;*/
       bottom: 0;
-    }
-
-    #title_container {
-      z-index: 10000;
-      position: absolute;
-      left: 75px;
-      background-color: rgba(255, 255, 255, 0.6);
-      padding-top: 0px;
-      padding-right: 25px;
-      padding-bottom: 10px;
-      padding-left: 25px;
     }
 
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    h1 {
-      font-size: 28px;
-      font-weight: 300;
-      line-height: 1.1;
-    }
-
-    p {
-      font-size: 12px;
-    }
-
-    .datetimeControl p {
-      margin: 0;
-      font-size: 16px;
-    }
-
     .custom-popup .leaflet-popup-content-wrapper {
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(255, 255, 255, 0.8);
       color: #2b2b2b;
-      font-size:12px;
+      font-size: 12px;
       border-radius: 8px;
       box-shadow: 5px;
     }
 
-.custom-popup .leaflet-popup-content-wrapper a {
-    color:rgba(255,255,255,0.1);
-  }
-.custom-popup .leaflet-popup-tip-container {
-  width:30px;
-  height:15px;
-  }
-.custom-popup .leaflet-popup-tip {
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 5px;
+    .custom-popup .leaflet-popup-content-wrapper a {
+      color: rgba(255, 255, 255, 0.1);
     }
 
+    .custom-popup .leaflet-popup-tip-container {
+      width: 30px;
+      height: 15px;
+    }
+
+    .custom-popup .leaflet-popup-tip {
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 5px;
+    }
   </style>
 </head>
 
-
 <body>
-
 
   <!-- Placeholder for map -->
   <div id="map"></div>
-
-  <!-- Placeholder for timeline -->
-  <!--<div id="timeline"></div>-->
-
-  <!-- Placeholder for app title -->
-  <div id="title_container">
-    <h1>Crimemap</h1>
-    <p>Showing you where crime happens in Stuttgart</p>
-  </div>
-
-  <!-- Placeholder for leaflet.infopane.js plugin-->
-  <div id="infopane">
-      <h2>Crimemap</h2>
-      <p>
-
-      </p>
-      <p><b>Pre-exam project<br />
-        for the Database Systems 2 lecture, SS21 @ HFT Stuttgart</b><br />
-        by Danny B. &amp; Johnny V.</p>
-
-      <p>
-        Some more yada yada bla bla bla...
-      </p>
-
-      <p>Crimemap &mdash; version 0.0.1</p>
-
-  </div>
-
 
   <!-- jquery and vis.js import -->
   <script src="https://code.jquery.com/jquery-1.11.0.js"></script>
@@ -123,13 +66,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/3.12.0/vis.min.js"></script>
 
-  <!-- Include Info pane -->
-  <script src="js/leaflet.infopane.js"></script>
-  <link rel="stylesheet" href="css/leaflet.infopane.css" />
-
   <!-- Include main js -->
   <script src="js/app.js"></script>
 
-
 </body>
+
 </html>
