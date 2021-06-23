@@ -1,0 +1,2 @@
+INSERT INTO `district` VALUES (1,'Bad Cannstatt'),(2,'Birkach'),(3,'Botnang'),(4,'Degerloch'),(5,'Feuerbach'),(6,'Hedelfingen'),(7,'Möhringen'),(8,'Mühlhausen'),(9,'Münster'),(10,'Obertürkheim'),(11,'Plieningen'),(12,'Sillenbuch'),(13,'Stammheim'),(14,'Stuttgart‐Mitte'),(15,'Stuttgart‐Nord'),(16,'Stuttgart‐Ost'),(17,'Stuttgart‐Süd'),(18,'Stuttgart‐West'),(19,'Untertürkheim'),(20,'Vaihingen'),(21,'Wangen'),(22,'Weilimdorf'),(23,'Zuffenhausen');
+
