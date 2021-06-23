@@ -29,8 +29,6 @@ public class Crime {
     @ManyToOne
     private District district;
     
-    private String address;
-
     @Column(precision = 8, scale = 6)
     private BigDecimal lat;
     @Column(precision = 8, scale = 6)
@@ -44,22 +42,20 @@ public class Crime {
     protected Crime() { }
 
     public Crime(Date dateOfCrime,
-            District district, String address, BigDecimal lat, BigDecimal lon,
+            District district, BigDecimal lat, BigDecimal lon,
             Offense offense) {
         this.dateOfCrime = dateOfCrime;
         this.district = district;
-        this.address = address;
         this.lat = lat;
         this.lon = lon;
         this.offense = offense;
     }
 
     public Crime(Date dateOfCrime,
-            District district, String address, BigDecimal lat, BigDecimal lon,
+            District district, BigDecimal lat, BigDecimal lon,
             Offense offense, String description) {
         this.dateOfCrime = dateOfCrime;
         this.district = district;
-        this.address = address;
         this.lat = lat;
         this.lon = lon;
         this.offense = offense;
@@ -88,14 +84,6 @@ public class Crime {
 
     public District getDistrict() {
         return district;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setLat(BigDecimal lat) {
