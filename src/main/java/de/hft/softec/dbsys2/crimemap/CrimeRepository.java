@@ -12,5 +12,4 @@ public interface CrimeRepository extends JpaRepository<Crime, Long> {
     public List<Crime> findAllByDistrictAndDateOfCrimeBetween(District district, Date startDate, Date endDate);
     public List<Crime> findAllByOffenseAndDistrictAndDateOfCrimeBetween(Offense offense, District district, Date startDate, Date endDate);
 
-
 }

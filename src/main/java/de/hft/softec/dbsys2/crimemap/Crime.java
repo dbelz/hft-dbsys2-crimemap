@@ -1,6 +1,5 @@
 package de.hft.softec.dbsys2.crimemap;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
 

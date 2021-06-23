@@ -1,6 +1,5 @@
 var map;
 var geoJsonLayer;
-var items;
 
 var accidentIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/accident.svg',
@@ -15,7 +14,6 @@ var burglaryIcon = new L.Icon({
   iconAnchor: [0, 0],
   popupAnchor: [18, 0]
 });
-
 
 var damageIcon = new L.Icon({
   iconUrl: 'http://localhost:8080/res/damage.svg',
@@ -66,13 +64,10 @@ var violenceIcon = new L.Icon({
   popupAnchor: [18, 0]
 });
 
-
-// Map callbacks
 function showCoordinates(e) {
   alert(e.latlng);
 }
 
-// Specify popup options
 var customOptions = {
   'className': 'custom-popup'
 }
@@ -101,12 +96,10 @@ function removeMap() {
     map.off();
     map.remove();
     map = null;
-
   }
 }
 
 function initMap(crimeGeoData) {
-  console.log("Init map");
   removeMap();
 
   map = L.map('map', {
@@ -120,10 +113,8 @@ function initMap(crimeGeoData) {
     ]
   });
 
-  // Add layer list to map
   L.control.layers(baseLayers).addTo(map);
 
-  // Set up marker cluster, which is linked to geoJson-layer
   var clusterLayer = L.markerClusterGroup();
   geoJsonLayer = L.geoJson(crimeGeoData, {
     onEachFeature: function(feature, layer) {
@@ -176,13 +167,10 @@ function initMap(crimeGeoData) {
   clusterLayer.addLayer(geoJsonLayer)
   map.addLayer(clusterLayer)
   
-  // Define initial viewport
   map.fitBounds(clusterLayer.getBounds());
-  // Set callback on click
   geoJsonLayer.on("click", markerOnClick)
 
   return map, geoJsonLayer;
-
 }
 
 queryString = window.location.search;
@@ -194,9 +182,6 @@ fetch('http://localhost:8080/crimes' + queryString)
   })
   .then((data) => {
     console.log(data);
-    // Initialize leaflet map
     map, geoJsonLayer = initMap(data);
-    // Initialize timeline
-    // timeline, items = initTimeline(data);
   });
 
